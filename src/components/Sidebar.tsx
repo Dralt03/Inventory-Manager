@@ -11,9 +11,9 @@ const Sidebar = () => {
       <div className="py-5 px-5 text-xl hover:cursor-pointer ">
         <Link href={"/inventory"}>Inventory</Link>
       </div>
-      <div className="py-5 px-5 text-xl hover:cursor-pointer ">
+      {/* <div className="py-5 px-5 text-xl hover:cursor-pointer ">
         <Link href={"/chat"}>Chat</Link>
-      </div>
+      </div> */}
     </div>
   );
 };

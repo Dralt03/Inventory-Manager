@@ -26,7 +26,7 @@ export default function Home() {
               delaySpeed={2000}
             />
           </p>
-          <p className="text-lg font-thin md:px-28 px-10 max-w-1/2 py-10 text-center my-5 bg-white dark:bg-transparent">
+          <p className="text-lg font-thin md:px-28 px-10 max-w-1/2 py-10 text-center my-5 bg-white/20 dark:bg-transparent">
             With the all new Inventory Manager it has never been easier to keep
             track of all your expenses items in storage
           </p>
@@ -41,6 +41,7 @@ export default function Home() {
           </Button>
         </div>
       </section>
+      <section className="main h-28 w-screen"></section>
     </main>
   );
 }
