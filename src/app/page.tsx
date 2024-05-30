@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className={`${poppins.className} h-screen w-full`}>
       <Navbar />
-      <section className="main pt-52 h-full w-full flex flex-col justify-center items-center text-zinc-900 dark:text-white">
+      <section className="main pt-52 max-sm:pt-96 h-full w-full flex flex-col justify-center items-center text-zinc-900 dark:text-white">
         <div className="absolute top-64 h-56 w-full animate-[pulse_3s_linear_infinity] bg-gradient-to-r from-violet-700/40 to-blue-400/40 rounded-full blur-3xl"></div>
         <div className=" z-10 text-7xl absolte max-sm:text-4xl font-bold">
           <p>Manage Your</p>
@@ -25,7 +25,7 @@ export default function Home() {
               delaySpeed={2000}
             />
           </p>
-          <p className="text-lg font-thin w-1/2 text-center pt-5">
+          <p className="text-lg font-thin md:px-28 px-10 max-w-1/2 py-10 text-center my-5 bg-white dark:bg-transparent">
             With the all new Inventory Manager it has never been easier to keep
             track of all your expenses items in storage
           </p>
@@ -35,7 +35,7 @@ export default function Home() {
           <Button className="max-md:mb-10" variant="outline">
             Learn More
           </Button>
-          <Button>Get Started</Button>
+          <Button className="">Get Started</Button>
         </div>
       </section>
     </main>
