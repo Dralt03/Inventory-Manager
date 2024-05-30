@@ -4,6 +4,7 @@ import { ModeToggle } from "./theme-toggler";
 import Hamburger from "hamburger-react";
 import { jetBrains } from "./fonts";
 import Sidebar from "./Sidebar";
+import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
@@ -24,18 +25,20 @@ const Navbar = () => {
             <p
               className={`${jetBrains.className} md:text-2xl md:pl-10 text-sm font-bold`}
             >
-              INVENTORY MANAGER
+              <Link href={"/"}>INVENTORY MANAGER</Link>
             </p>
           </div>
           <div className="px-8 flex items-center">
-            <div className="px-4 mr-5 py-1.5 rounded-lg max-md:hidden border-2 hover:bg-neutral-200 dark:border-zinc-800/30 dark:hover:bg-zinc-800">
-              <SignedOut>
-                <SignInButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </div>
+            {
+              <div className="px-4 mr-5 py-1.5 rounded-lg max-md:hidden border-2 hover:bg-neutral-200 dark:border-zinc-800/30 dark:hover:bg-zinc-800">
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+              </div>
+            }
             <ModeToggle />
           </div>
         </nav>
