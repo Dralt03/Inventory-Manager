@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 import { jetBrains, poppins } from "@/components/fonts";
 import { Button } from "@/components/ui/button";
 import { Typewriter } from "react-simple-typewriter";
@@ -35,7 +36,9 @@ export default function Home() {
           <Button className="max-md:mb-10" variant="outline">
             Learn More
           </Button>
-          <Button className="">Get Started</Button>
+          <Button>
+            <Link href={"/SignUp"}>Get Started</Link>
+          </Button>
         </div>
       </section>
     </main>

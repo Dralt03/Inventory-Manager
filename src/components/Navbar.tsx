@@ -23,7 +23,7 @@ const Navbar = () => {
           <div className="flex items-center md:m-3">
             <Hamburger toggled={slides} toggle={setSlides} />
             <p
-              className={`${jetBrains.className} md:text-2xl md:pl-10 text-sm font-bold`}
+              className={`${jetBrains.className} md:text-2xl hover:cursor-pointer md:pl-10 text-sm font-bold`}
             >
               <Link href={"/"}>INVENTORY MANAGER</Link>
             </p>
