@@ -8,26 +8,47 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: rgb(187, 187, 187);
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
+::-webkit-scrollbar-thumb {
+  background-color: white;
+}
+
+.main {
+  width: screen;
+  --dot-bg: #fff;
+  --dot-color: #000;
+  --dot-size: 1.5px;
+  --dot-space: 50px;
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+        90deg,
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    linear-gradient(
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    var(--dot-color);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@media (prefers-color-scheme: dark) {
+  .dark ::-webkit-scrollbar {
+    width: 5px;
+    background-color: gray;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: #1f1f1f;
+  }
+  .dark .main {
+    --dot-bg: #1f1f1f; /* Change to your desired dark mode background color */
+    --dot-color: #a3a3a3; /* Change to your desired dark mode dot color */
+    --dot-size: 1.5px;
   }
 }
