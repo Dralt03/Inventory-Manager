@@ -8,7 +8,6 @@ import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
-  const menu = useRef(null);
   const [slides, setSlides] = useState(false);
 
   const closeSlide = () => {
@@ -25,20 +24,19 @@ const Navbar = () => {
             <p
               className={`${jetBrains.className} md:text-2xl max-md:px-10 hover:cursor-pointer md:pl-10 text-lg font-bold`}
             >
-              <Link href={"/"}>INVENTORY MANAGER</Link>
+              <Link href={"/overview"}>INVENTORY MANAGER</Link>
             </p>
           </div>
-          <div className="px-4 flex items-center">
-            {/* {
-              <div className="px-4 mr-5 py-1.5 rounded-lg max-md:hidden border-2 hover:bg-neutral-200 dark:border-zinc-800/30 dark:hover:bg-zinc-800">
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
-              </div>
-            } */}
+          <div className=" flex items-center md:mx-10">
+            <div className="md:mr-5">
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+
             <ModeToggle />
           </div>
         </nav>

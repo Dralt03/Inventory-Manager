@@ -33,8 +33,8 @@ export default function Home() {
         </div>
 
         <div className="relative flex w-1/2 items-center justify-evenly py-20 flex-col md:flex-row">
-          <Button className="max-md:mb-10" variant="ghost">
-            Learn More
+          <Button className="max-md:mb-10" variant="outline">
+            <Link href={"/SignIn"}>Sign In</Link>
           </Button>
           <Button>
             <Link href={"/SignUp"}>Get Started</Link>
