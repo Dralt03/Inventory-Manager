@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import React, { ReactNode } from "react";
+import "../globals.css";
 
 const layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (

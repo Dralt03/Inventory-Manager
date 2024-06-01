@@ -24,7 +24,12 @@ const Navbar = () => {
             <p
               className={`${jetBrains.className} md:text-2xl max-md:px-10 hover:cursor-pointer md:pl-10 text-lg font-bold`}
             >
-              <Link href={"/overview"}>INVENTORY MANAGER</Link>
+              <SignedIn>
+                <Link href={"/overview"}>INVENTORY MANAGER</Link>
+              </SignedIn>
+              <SignedOut>
+                <Link href={"/"}>INVENTORY MANAGER</Link>
+              </SignedOut>
             </p>
           </div>
           <div className=" flex items-center md:mx-10">

@@ -13,5 +13,5 @@ export type Item = {
 export type Shop = {
   id: string;
   title: string;
-  items: Item[];
+  items: Array<object>;
 };

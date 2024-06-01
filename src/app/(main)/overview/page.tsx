@@ -5,8 +5,8 @@ import { OverviewItems } from "@/lib/seed";
 
 const page = () => {
   return (
-    <main className="flex  md:justify-center">
-      <div className="pt-10 pl-16 flex flex-wrap max-md:min-w-96 w-2/3">
+    <main className="flex max-md:justify-center">
+      <div className="pt-10 pl-10 flex flex-wrap max-md:min-w-80 w-full">
         {OverviewItems.map((shops) => {
           return <OverviewCard key={shops.shopName} {...shops} />;
         })}

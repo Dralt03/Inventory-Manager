@@ -9,7 +9,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
   background-color: rgb(187, 187, 187);
 }
 
@@ -39,8 +39,8 @@
 
 @media (prefers-color-scheme: dark) {
   .dark ::-webkit-scrollbar {
-    width: 5px;
-    background-color: gray;
+    width: 2px;
+    background-color: rgba(37, 37, 37, 0);
   }
 
   .dark ::-webkit-scrollbar-thumb {
