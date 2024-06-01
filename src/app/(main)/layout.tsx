@@ -5,7 +5,7 @@ const layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <>
       <Navbar />
-      <div className="main h-screen w-screen">{children}</div>
+      <div className="main h-fit min-h-screen w-screen">{children}</div>
     </>
   );
 };
