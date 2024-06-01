@@ -12,24 +12,24 @@ const Page = () => {
       });
   }, []);
 
-  const shops = {
-    id: "1",
-    title: "Shop1",
-    items: [
-      {
-        id: "1",
-        shop: "1",
-        itemName: "Adidas Shoes",
-        quantity: 1,
-      },
-      {
-        id: "2",
-        shop: "1",
-        itemName: "Big Joe",
-        quantity: 4,
-      },
-    ],
-  };
+  // const shops = {
+  //   id: "1",
+  //   title: "Shop1",
+  //   items: [
+  //     {
+  //       id: "1",
+  //       shop: "1",
+  //       itemName: "Adidas Shoes",
+  //       quantity: 1,
+  //     },
+  //     {
+  //       id: "2",
+  //       shop: "1",
+  //       itemName: "Big Joe",
+  //       quantity: 4,
+  //     },
+  //   ],
+  // };
   return (
     <div className="pt-24">
       <p
@@ -37,8 +37,6 @@ const Page = () => {
       >
         Inventory
       </p>
-
-      <Column {...shops} />
     </div>
   );
 };
