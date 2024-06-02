@@ -1,10 +1,11 @@
 export type CardDetails = {
+  id: string;
   shopName: string;
   items: number;
 };
 
 export type Item = {
-  id: number;
+  id: string;
   shop: string;
   itemName: string;
   quantity: number;
@@ -13,5 +14,5 @@ export type Item = {
 export type Shop = {
   id: string;
   title: string;
-  items: Array<object>;
+  items: any;
 };

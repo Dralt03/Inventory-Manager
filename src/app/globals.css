@@ -10,7 +10,7 @@
 
 ::-webkit-scrollbar {
   width: 2px;
-  background-color: rgb(187, 187, 187);
+  background-color: rgba(224, 224, 224, 0.685);
 }
 
 ::-webkit-scrollbar-thumb {

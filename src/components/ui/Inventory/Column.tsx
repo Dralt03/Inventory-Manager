@@ -20,7 +20,7 @@ const Column = (column: Shop) => {
           );
         })}
       </ul>
-      <p className="text-neutral-400 flex items-center px-4 text-sm hover:text-neutral-500 cursor-pointer">
+      <p className="text-neutral-500 dark:text-neutral-400 flex items-center px-4 text-sm hover:text-neutral-500 cursor-pointer">
         Add Item <Plus size={15} />
       </p>
     </div>
