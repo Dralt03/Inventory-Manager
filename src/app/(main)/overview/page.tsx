@@ -2,17 +2,18 @@
 import React, { useEffect, useState } from "react";
 import OverviewCard from "@/components/ui/overviewCard";
 import { CardDetails } from "@/components/definitions";
-import { OverviewItems } from "@/lib/seed";
+import { OverviewItems, shops } from "@/lib/seed";
 
 const Page = () => {
-  const [OverviewItems, setOverviewItems] = useState([]);
+  // const [OverviewItems, setOverviewItems] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:8080/api/home")
-      .then((response) => response.json())
-      .then((res) => setOverviewItems(res));
-  }, []);
-  console.log(OverviewItems);
+  // useEffect(() => {
+  //   fetch("http://localhost:8080/api/home")
+  //     .then((response) => response.json())
+  //     .then((res) => setOverviewItems(res));
+  // }, []);
+  // console.log(OverviewItems);
+  const OverviewItems: any = shops;
 
   return (
     <main className="flex max-md:justify-center">

@@ -3,28 +3,25 @@ import React, { useEffect, useState } from "react";
 import { poppins } from "@/components/fonts";
 import AddColumn from "@/components/ui/Inventory/AddColumn";
 import Column from "@/components/ui/Inventory/Column";
+import { shops } from "@/lib/seed";
 
 const Page = () => {
-  const [shops, setShops] = useState([]);
+  // const [shops, setShops] = useState([]);
 
   interface Shop {
     id: string;
     title: string;
     items: any;
   }
-  interface Items {
-    id: string;
-    shop: string;
-    itemName: string;
-    quantity: number;
-  }
 
-  useEffect(() => {
-    fetch("http://localhost:8080/api/home")
-      .then((response) => response.json())
-      .then((res) => setShops(res))
-      .catch((err) => console.log("Err fetching: ", err));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:8080/api/home")
+  //     .then((response) => response.json())
+  //     .then((res) => setShops(res))
+  //     .catch((err) => console.log("Err fetching: ", err));
+  // }, []);
+
+  const items: any = shops;
 
   return (
     <div className="pt-24 overflow-auto">
@@ -32,7 +29,7 @@ const Page = () => {
         Inventory
       </p>
       <div className="flex flex-col max-md:items-center md:flex-row">
-        {shops.length > 0
+        {items.length > 0
           ? shops.map((item: Shop) => {
               return <Column key={item.id} {...item} />;
             })
