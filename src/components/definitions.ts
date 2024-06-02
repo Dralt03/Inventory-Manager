@@ -16,3 +16,8 @@ export type Shop = {
   title: string;
   items: any;
 };
+
+export type Props = {
+  state: Shop;
+  setState: (val: Shop) => void;
+};

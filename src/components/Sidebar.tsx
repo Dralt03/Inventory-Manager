@@ -18,7 +18,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="-z-10absolute w-52 overflow-hidden pt-28 px-0 pb-12 items-stretch flex flex-col justify-end bg-neutral-200 h-screen dark:bg-zinc-600/80">
+    <div className="z-10 absolute w-52 overflow-hidden pt-28 px-0 pb-12 items-stretch flex flex-col justify-start bg-neutral-200 h-screen dark:bg-zinc-700">
       <SignedIn>
         {links.map((link) => {
           return (

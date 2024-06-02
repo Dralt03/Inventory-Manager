@@ -1,12 +1,39 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Shop } from "@/components/definitions";
 import { Separator } from "../separator";
-import { Plus } from "lucide-react";
+import { Plus, Edit } from "lucide-react";
 
 const Column = (column: Shop) => {
+  const [editTitle, setEditTitle] = useState(false);
+  const [newtitle, setNewTitle] = useState("");
+
   return (
     <div className="min-h-96 flex-shrink-0 h-fit w-72 max-sm:mx-5 rounded-2xl mx-10 my-10 px-5 py-10 flex flex-col justify-start bg-white dark:bg-zinc-800 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] dark:shadow-[rgba(6,_24,_44,_0.4)_0px_0px_0px_2px,_rgba(6,_24,_44,_0.65)_0px_4px_6px_-1px,_rgba(255,_255,_255,_0.08)_0px_1px_0px_inset]">
-      <p className="text-3xl ">{column.title}</p>
+      <p className="text-3xl ">
+        {editTitle ? (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <input
+              className="w-full focus:outline-none rounded-xl p-2 text-xl bg-neutral-100 dark:bg-zinc-500/60"
+              type="text"
+              placeholder="Add Title"
+              value={newtitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+            ></input>
+          </form>
+        ) : (
+          <>
+            {column.title}
+            <span onClick={() => setEditTitle(true)} className="text-right">
+              <Edit size={20} />
+            </span>
+          </>
+        )}
+      </p>
       <Separator />
       <ul className="pt-8">
         {column.items.map((item: any) => {
