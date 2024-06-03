@@ -9,6 +9,11 @@ import { Shop } from "@/components/definitions";
 const Page = () => {
   const [items, setItems] = useState(shops);
 
+  useEffect(() => {
+    const savedItems = JSON.parse(localStorage.getItem("items") || "[]");
+    setItems(savedItems);
+  }, []);
+
   const addEmptyShop = () => {
     const newShop: Shop = {
       id: Math.random().toString(),
@@ -18,12 +23,27 @@ const Page = () => {
     setItems((prevItems) => [...prevItems, newShop]);
   };
 
-  // useEffect(() => {
-  //   fetch("http://localhost:8080/api/home")
-  //     .then((response) => response.json())
-  //     .then((res) => setShops(res))
-  //     .catch((err) => console.log("Err fetching: ", err));
-  // }, []);
+  const changeShopTitle = (id: string, newTitle: string) => {
+    setItems((previtems) =>
+      previtems.map((shop) =>
+        shop.id === id ? { ...shop, title: newTitle } : shop
+      )
+    );
+    saveItemsToLocalStorage(
+      items.map((shop) =>
+        shop.id === id ? { ...shop, title: newTitle } : shop
+      )
+    );
+  };
+
+  const deleteShop = (id: string) => {
+    setItems((previtems) => previtems.filter((item) => item.id !== id));
+    saveItemsToLocalStorage(items.filter((shop) => shop.id !== id));
+  };
+
+  const saveItemsToLocalStorage = (shops: Shop[]) => {
+    localStorage.setItem("items", JSON.stringify(shops));
+  };
 
   return (
     <div className="pt-24 mr-5 overflow-auto">
@@ -35,9 +55,16 @@ const Page = () => {
       <div className="flex flex-col max-md:items-center md:flex-row">
         {items.length > 0
           ? items.map((item: Shop) => {
-              return <Column key={item.id} {...item} />;
+              return (
+                <Column
+                  key={item.id}
+                  column={item}
+                  handleChangeTitle={changeShopTitle}
+                  deleteShop={deleteShop}
+                />
+              );
             })
-          : "Loading"}
+          : ""}
         <AddColumn shops={items} addEmptyShop={addEmptyShop} />
       </div>
     </div>

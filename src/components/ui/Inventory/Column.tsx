@@ -2,36 +2,57 @@
 import React, { useState } from "react";
 import { Shop } from "@/components/definitions";
 import { Separator } from "../separator";
-import { Plus, Edit } from "lucide-react";
+import { Plus, Edit, Trash } from "lucide-react";
 
-const Column = (column: Shop) => {
+const Column: React.FC<{
+  column: Shop;
+  handleChangeTitle: (id: string, newTitle: string) => void;
+  deleteShop: (id: string) => void;
+}> = ({ column, handleChangeTitle, deleteShop }) => {
   const [editTitle, setEditTitle] = useState(false);
-  const [newtitle, setNewTitle] = useState("");
+  const [title, setTitle] = useState("");
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (title.trim() === "") {
+      return;
+    }
+    handleChangeTitle(column.id, title);
+    setTitle("");
+    setEditTitle(false);
+  };
 
   return (
     <div className="min-h-96 flex-shrink-0 h-fit w-72 max-sm:mx-5 rounded-2xl mx-10 my-10 px-5 py-10 flex flex-col justify-start bg-white dark:bg-zinc-800 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] dark:shadow-[rgba(6,_24,_44,_0.4)_0px_0px_0px_2px,_rgba(6,_24,_44,_0.65)_0px_4px_6px_-1px,_rgba(255,_255,_255,_0.08)_0px_1px_0px_inset]">
       <p className="text-3xl ">
         {editTitle ? (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
+          <form onSubmit={handleSubmit}>
             <input
+              autoFocus
               className="w-full focus:outline-none rounded-xl p-2 text-xl bg-neutral-100 dark:bg-zinc-500/60"
               type="text"
               placeholder="Add Title"
-              value={newtitle}
-              onChange={(e) => setNewTitle(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             ></input>
           </form>
         ) : (
-          <>
+          <div className="flex items-center justify-between">
             {column.title}
-            <span onClick={() => setEditTitle(true)} className="text-right">
-              <Edit size={20} />
-            </span>
-          </>
+            <div className="flex">
+              <Edit
+                className="cursor-pointer mr-5"
+                onClick={() => setEditTitle(true)}
+                size={20}
+              />
+
+              <Trash
+                className="cursor-pointer"
+                onClick={() => deleteShop(column.id)}
+                size={20}
+              />
+            </div>
+          </div>
         )}
       </p>
       <Separator />
