@@ -26,8 +26,10 @@ const Page = () => {
   // }, []);
 
   return (
-    <div className="pt-24 overflow-auto">
-      <p className={`${poppins.className} px-16 py-5 text-3xl font-medium `}>
+    <div className="pt-24 mr-5 overflow-auto">
+      <p
+        className={`${poppins.className} px-16 pt-5 pb-4 text-3xl font-medium `}
+      >
         Inventory
       </p>
       <div className="flex flex-col max-md:items-center md:flex-row">

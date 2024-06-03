@@ -41,7 +41,6 @@ export default function Home() {
           </Button>
         </div>
       </section>
-      <section className="main h-28 w-screen"></section>
     </main>
   );
 }

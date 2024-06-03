@@ -18,18 +18,15 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="z-10 absolute w-52 overflow-hidden pt-28 px-0 pb-12 items-stretch flex flex-col justify-start bg-neutral-200 h-screen dark:bg-zinc-700">
+    <div className="z-10 absolute w-64 backdrop-blur-md drop-shadow-2xl overflow-hidden pt-28 px-0 pb-12 items-stretch flex flex-col justify-start bg-neutral-100/50 h-screen dark:bg-zinc-700/50">
       <SignedIn>
         {links.map((link) => {
           return (
             <Link href={link.href}>
               <div
-                className={clsx(
-                  "py-5 px-5 text-xl hover:cursor-pointer bg-neutral-600/20 ",
-                  {
-                    "dark:bg-neutral-800": pathname === link.href,
-                  }
-                )}
+                className={clsx("py-5 px-5 text-xl hover:cursor-pointer  ", {
+                  "bg-neutral-100 dark:bg-neutral-800": pathname === link.href,
+                })}
               >
                 {link.name}
               </div>
@@ -37,14 +34,6 @@ const Sidebar = () => {
           );
         })}
       </SignedIn>
-      <SignedOut>
-        <Link href={"/SignIn"}>
-          <div className="py-5 px-5 text-xl hover:cursor-pointer ">Sign In</div>
-        </Link>
-        <Link href={"/SignUp"}>
-          <div className="py-5 px-5 text-xl hover:cursor-pointer ">Sign Up</div>
-        </Link>
-      </SignedOut>
     </div>
   );
 };
