@@ -14,7 +14,6 @@ const Navbar = () => {
     setSlides(false);
   };
 
-  document.body.addEventListener("click", closeSlide);
   return (
     <>
       <header className="min-h-16 z-20 absolute max-md:p-5 w-full py-2 bg-neutral-50 dark:bg-zinc-700">

@@ -5,22 +5,33 @@ import { CardDetails } from "@/components/definitions";
 import { OverviewItems, shops } from "@/lib/seed";
 
 const Page = () => {
-  // const [OverviewItems, setOverviewItems] = useState([]);
+  const [shops, setShops] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   fetch("http://localhost:8080/api/home")
-  //     .then((response) => response.json())
-  //     .then((res) => setOverviewItems(res));
-  // }, []);
-  // console.log(OverviewItems);
-  const OverviewItems: any = shops;
+  useEffect(() => {
+    const fetchFromLocalStorage = () => {
+      try {
+        const shopsData = localStorage.getItem("shops");
+        console.log(shopsData);
+        if (shopsData) {
+          const parsedShops = JSON.parse(shopsData);
+          setShops(parsedShops);
+        }
+      } catch (err) {
+        console.log("Error fetching: ", err);
+        throw err;
+      }
+    };
+
+    fetchFromLocalStorage();
+  }, []);
 
   return (
     <main className="flex max-md:justify-center">
       <div className="pt-10 pl-10 flex flex-wrap max-md:min-w-80 w-full">
-        {OverviewItems.length > 0
-          ? OverviewItems.map((shop: any) => {
-              return <OverviewCard key={shop.shopName} {...shop} />;
+        {shops.length > 0
+          ? shops.map((shop: any) => {
+              return <OverviewCard key={shop.id} {...shop} />;
             })
           : "Nothing to see here"}
       </div>

@@ -6,7 +6,6 @@ const AddColumn: React.FC<{ shops: Shop[]; addEmptyShop: () => void }> = ({
   shops,
   addEmptyShop,
 }) => {
-  console.log(shops);
   return (
     <div
       onClick={addEmptyShop}

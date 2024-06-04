@@ -7,9 +7,9 @@ import { Typewriter } from "react-simple-typewriter";
 
 export default function Home() {
   return (
-    <main className={`${poppins.className} min-h-screen h-fit w-full`}>
+    <main className={`${poppins.className}  w-full`}>
       <Navbar />
-      <section className="main pt-52 max-sm:pt-96 h-full w-full flex flex-col justify-center items-center text-zinc-900 dark:text-white">
+      <section className="main pt-52 max-sm:pt-96 min-h-dvh h-fit w-full flex flex-col justify-center items-center text-zinc-900 dark:text-white">
         <div className="absolute top-64 h-56 w-full animate-[pulse_3s_linear_infinity] bg-gradient-to-r from-violet-700/40 to-blue-400/40 rounded-full blur-3xl"></div>
         <div className=" z-10 text-7xl absolte max-sm:text-4xl font-bold">
           <p>Manage Your</p>
