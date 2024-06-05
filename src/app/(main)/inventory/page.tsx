@@ -60,16 +60,16 @@ const Page = () => {
       )
     );
 
-    // saveItemsToLocalStorage(
-    //   items.map((shop) =>
-    //     shop.id === shop_id
-    //       ? {
-    //           ...shop,
-    //           items: shop.items.filter((thing) => thing.id !== item_id),
-    //         }
-    //       : shop
-    //   )
-    // );
+    saveItemsToLocalStorage(
+      items.map((shop) =>
+        shop.id === shop_id
+          ? {
+              ...shop,
+              items: shop.items.filter((thing) => thing.id !== item_id),
+            }
+          : shop
+      )
+    );
   };
 
   const addEmptyShop = () => {
