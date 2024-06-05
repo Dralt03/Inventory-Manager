@@ -65,7 +65,7 @@ const Page = () => {
         shop.id === shop_id
           ? {
               ...shop,
-              items: shop.items.filter((thing) => thing.id !== item_id),
+              items: shop.items.filter((thing: Item) => thing.id !== item_id),
             }
           : shop
       )
