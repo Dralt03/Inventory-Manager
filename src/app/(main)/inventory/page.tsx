@@ -7,7 +7,7 @@ import { shops } from "@/lib/seed";
 import { Shop, Item } from "@/components/definitions";
 
 const Page = () => {
-  const [items, setItems] = useState(shops);
+  const [items, setItems] = useState<Shop[]>([]);
 
   const addToItems = (array: any, element: Item) => {
     array.push(element);
@@ -54,11 +54,22 @@ const Page = () => {
         shop.id === shop_id
           ? {
               ...shop,
-              items: shop.items.filter((thing) => thing.id !== item_id),
+              items: shop.items.filter((thing: Item) => thing.id !== item_id),
             }
           : shop
       )
     );
+
+    // saveItemsToLocalStorage(
+    //   items.map((shop) =>
+    //     shop.id === shop_id
+    //       ? {
+    //           ...shop,
+    //           items: shop.items.filter((thing) => thing.id !== item_id),
+    //         }
+    //       : shop
+    //   )
+    // );
   };
 
   const addEmptyShop = () => {
