@@ -1,11 +1,17 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { jetBrains, poppins } from "@/components/fonts";
+import { jetBrains, poppins, roboto } from "@/components/fonts";
 import { Button } from "@/components/ui/button";
 import { Typewriter } from "react-simple-typewriter";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 
 export default function Home() {
+  const theme = useTheme();
+  const src =
+    theme.theme === "light" ? "/HomePageLight.png" : "/HomePageDark.png";
+
   return (
     <main className={`${poppins.className}  w-full`}>
       <Navbar />
