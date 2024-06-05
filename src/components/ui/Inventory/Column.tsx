@@ -2,21 +2,28 @@
 import React, { useState } from "react";
 import { Shop } from "@/components/definitions";
 import { Separator } from "../separator";
-import { Plus, Edit, Trash } from "lucide-react";
+import { Edit, Trash, Trash2Icon } from "lucide-react";
 import AddSheet from "./AddSheet";
+import clsx from "clsx";
 
 const Column: React.FC<{
   column: Shop;
   handleChangeTitle: (id: string, newTitle: string) => void;
   deleteShop: (id: string) => void;
+  deleteElement: (shop_id: string, item_id: string) => void;
   addShopItem: (
     shop_id: string,
     itemName: string,
     shop: string,
     quantity: number
   ) => void;
-}> = ({ column, handleChangeTitle, deleteShop, addShopItem }) => {
-  const [addItem, setAddItem] = useState(false);
+}> = ({
+  column,
+  handleChangeTitle,
+  deleteShop,
+  addShopItem,
+  deleteElement,
+}) => {
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState("");
 
@@ -67,12 +74,31 @@ const Column: React.FC<{
       <ul className="pt-8">
         {column.items.map((item: any) => {
           return (
-            <li className="px-4 py-3 text-lg" key={item.id}>
-              {item.itemName}
-              <p className="text-neutral-400 py-3 text-sm">
+            <>
+              <li
+                className={clsx(
+                  "px-4 py-3 text-lg flex items-center justify-between",
+                  {
+                    "text-red-600/60 dark:text-red-400 font-semibold":
+                      item.quantity <= 0,
+                  }
+                )}
+                key={item.id}
+              >
+                {item.itemName}
+                <Trash2Icon
+                  className="hover:cursor-pointer"
+                  onClick={() => {
+                    deleteElement(column.id, item.id);
+                    console.log(item);
+                  }}
+                  size={18}
+                />
+              </li>
+              <p className="text-neutral-400 pb-4 pl-4 text-sm">
                 Quantity:{item.quantity}
               </p>
-            </li>
+            </>
           );
         })}
       </ul>

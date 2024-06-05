@@ -27,10 +27,8 @@ const AddSheet: React.FC<{
   const [quantity, setQuantity] = useState(0);
 
   const handleSubmit = (e: any) => {
-    e.preventDefault();
     addShopItem(shop_id, item, shop_name, quantity);
     setItem("");
-    setQuantity(0);
   };
 
   return (
@@ -64,7 +62,7 @@ const AddSheet: React.FC<{
               value={quantity}
               onChange={(e) => setQuantity(Number(e.target.value))}
               type="number"
-              className="col-span-3 py-1.5 bg-neutral-100/40 dark:bg-zinc-900/50 px-2 ml-5 rounded-lg w-10"
+              className="col-span-3 py-1.5 bg-neutral-100/40 dark:bg-zinc-900/50 px-2 ml-5 rounded-lg w-20"
             />
           </div>
         </div>

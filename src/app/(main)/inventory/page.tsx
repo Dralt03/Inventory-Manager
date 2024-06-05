@@ -9,6 +9,10 @@ import { Shop, Item } from "@/components/definitions";
 const Page = () => {
   const [items, setItems] = useState(shops);
 
+  const addToItems = (array: any, element: Item) => {
+    array.push(element);
+    return array;
+  };
   useEffect(() => {
     const savedItems = JSON.parse(localStorage.getItem("items") || "[]");
     setItems(savedItems);
@@ -20,17 +24,41 @@ const Page = () => {
     shop: string,
     quantity: number
   ) => {
-    const newItem: Item = {
+    const newItem: any = {
       id: Math.random().toString(),
       itemName: itemName,
       quantity: quantity,
       shop: shop,
     };
 
-    items.map((shops) =>
-      shops.id === shop_id ? { ...shops, items: [...items, newItem] } : shops
+    setItems(
+      items.map((shop) =>
+        shop.id === shop_id
+          ? { ...shop, items: [...shop.items, newItem] }
+          : shop
+      )
     );
-    console.log(items);
+
+    saveItemsToLocalStorage(
+      items.map((shop) =>
+        shop.id === shop_id
+          ? { ...shop, items: [...shop.items, newItem] }
+          : shop
+      )
+    );
+  };
+
+  const deleteElement = (shop_id: string, item_id: string) => {
+    setItems(
+      items.map((shop) =>
+        shop.id === shop_id
+          ? {
+              ...shop,
+              items: shop.items.filter((thing) => thing.id !== item_id),
+            }
+          : shop
+      )
+    );
   };
 
   const addEmptyShop = () => {
@@ -81,6 +109,7 @@ const Page = () => {
                   handleChangeTitle={changeShopTitle}
                   deleteShop={deleteShop}
                   addShopItem={addNewItem}
+                  deleteElement={deleteElement}
                 />
               );
             })
