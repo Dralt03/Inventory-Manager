@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Typewriter } from "react-simple-typewriter";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 export default function Home() {
   const theme = useTheme();
@@ -39,12 +40,22 @@ export default function Home() {
         </div>
 
         <div className="relative flex w-1/2 items-center justify-evenly py-20 flex-col md:flex-row">
-          <Button className="max-md:mb-10" variant="outline">
-            <Link href={"/SignIn"}>Sign In</Link>
-          </Button>
-          <Button>
-            <Link href={"/SignUp"}>Get Started</Link>
-          </Button>
+          <SignedOut>
+            <Button className="max-md:mb-10" variant="outline">
+              <Link href={"/SignIn"}>Sign In</Link>
+            </Button>
+            <Button>
+              <Link href={"/SignUp"}>Get Started</Link>
+            </Button>
+          </SignedOut>
+          <SignedIn>
+            <Button className="max-md:mb-10" variant="outline">
+              <Link href={"/overview"}>Overview</Link>
+            </Button>
+            <Button>
+              <Link href={"/inventory"}>Inventory</Link>
+            </Button>
+          </SignedIn>
         </div>
       </section>
     </main>
