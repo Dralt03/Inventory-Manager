@@ -9,98 +9,149 @@ import { Shop, Item } from "@/components/definitions";
 const Page = () => {
   const [items, setItems] = useState<Shop[]>([]);
 
-  const addToItems = (array: any, element: Item) => {
-    array.push(element);
-    return array;
-  };
   useEffect(() => {
-    const savedItems = JSON.parse(localStorage.getItem("items") || "[]");
-    setItems(savedItems);
+    fetch("https://inventory-manager-backend-qkxh.onrender.com/api/shops")
+      .then((res) => res.json())
+      .then((data) => setItems(data))
+      .catch((err) => console.log("Error fetching data: ", err));
   }, []);
 
-  const addNewItem = (
+  const addNewItem = async (
     shop_id: string,
     itemName: string,
-    shop: string,
     quantity: number
   ) => {
-    const newItem: any = {
-      id: Math.random().toString(),
-      itemName: itemName,
-      quantity: quantity,
-      shop: shop,
-    };
+    try {
+      const response = await fetch(
+        `https://inventory-manager-backend-qkxh.onrender.com/api/shops/${shop_id}/items`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ itemName, quantity }),
+        }
+      );
 
-    setItems(
-      items.map((shop) =>
-        shop.id === shop_id
-          ? { ...shop, items: [...shop.items, newItem] }
-          : shop
-      )
-    );
-
-    saveItemsToLocalStorage(
-      items.map((shop) =>
-        shop.id === shop_id
-          ? { ...shop, items: [...shop.items, newItem] }
-          : shop
-      )
-    );
+      if (response.ok) {
+        const newItem = await response.json();
+        setItems(
+          items.map((shop) =>
+            shop.id === shop_id
+              ? { ...shop, items: [...shop.items, newItem] }
+              : shop
+          )
+        );
+      } else {
+        const errData = await response.json();
+        console.log("Error repose: ", errData.message);
+      }
+    } catch (err) {
+      console.log("Error adding element: ", err);
+    }
   };
 
-  const deleteElement = (shop_id: string, item_id: string) => {
-    setItems(
-      items.map((shop) =>
-        shop.id === shop_id
-          ? {
-              ...shop,
-              items: shop.items.filter((thing: Item) => thing.id !== item_id),
-            }
-          : shop
-      )
-    );
+  const deleteElement = async (shop_id: string, item_id: string) => {
+    try {
+      const response = await fetch(
+        `https://inventory-manager-backend-qkxh.onrender.com/api/shops/${shop_id}/items/${item_id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
-    saveItemsToLocalStorage(
-      items.map((shop) =>
-        shop.id === shop_id
-          ? {
-              ...shop,
-              items: shop.items.filter((thing: Item) => thing.id !== item_id),
-            }
-          : shop
-      )
-    );
+      if (response.ok) {
+        setItems(
+          items.map((shop) =>
+            shop.id === shop_id
+              ? {
+                  ...shop,
+                  items: shop.items.filter(
+                    (thing: Item) => thing.id !== item_id
+                  ),
+                }
+              : shop
+          )
+        );
+      } else {
+        const errData = await response.json();
+        console.log("Error deleting: ", errData.message);
+      }
+    } catch (err) {
+      console.log("Error Deleting element: ", err);
+    }
   };
 
-  const addEmptyShop = () => {
-    const newShop: Shop = {
-      id: Math.random().toString(),
-      title: "NewShop",
-      items: [],
-    };
-    setItems((prevItems) => [...prevItems, newShop]);
+  const addEmptyShop = async () => {
+    try {
+      const response = await fetch(
+        "https://inventory-manager-backend-qkxh.onrender.com/api/shops",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title: "NewShop" }),
+        }
+      );
+
+      if (response.ok) {
+        const addedShop = await response.json();
+        setItems((prevItems) => [...prevItems, addedShop]);
+      } else {
+        const errData = await response.json();
+        console.log("Error Adding Shop: ", errData.message);
+      }
+    } catch (err) {
+      console.log("Cannot post: ", err);
+    }
   };
 
-  const changeShopTitle = (id: string, newTitle: string) => {
-    setItems((previtems) =>
-      previtems.map((shop) =>
-        shop.id === id ? { ...shop, title: newTitle } : shop
-      )
-    );
-    saveItemsToLocalStorage(
-      items.map((shop) =>
-        shop.id === id ? { ...shop, title: newTitle } : shop
-      )
-    );
+  const changeShopTitle = async (id: string, newTitle: string) => {
+    try {
+      const response = await fetch(
+        `https://inventory-manager-backend-qkxh.onrender.com/api/shops/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ newTitle }),
+        }
+      );
+
+      if (response.ok) {
+        const updatedShop = await response.json();
+        setItems((previtems) =>
+          previtems.map((shop) => (shop.id === id ? updatedShop : shop))
+        );
+      } else {
+        const errData = await response.json();
+        console.log("Error in response: ", errData.message);
+      }
+    } catch (err) {
+      console.log("Error Changing Name: ", err);
+    }
   };
 
-  const deleteShop = (id: string) => {
-    setItems((previtems) => previtems.filter((item) => item.id !== id));
-    saveItemsToLocalStorage(items.filter((shop) => shop.id !== id));
-  };
+  const deleteShop = async (id: string) => {
+    try {
+      const response = await fetch(
+        `https://inventory-manager-backend-qkxh.onrender.com/api/shops/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
-  const saveItemsToLocalStorage = (shops: Shop[]) => {
-    localStorage.setItem("items", JSON.stringify(shops));
+      if (response.ok) {
+        setItems((previtems) => previtems.filter((item) => item.id !== id));
+      } else {
+        const errorData = await response.json();
+        console.log("Error deleting shop: ", errorData.message);
+      }
+    } catch (err) {
+      console.log("Error POSTING: ", err);
+    }
   };
 
   return (

@@ -8,22 +8,22 @@ const Page = () => {
   const [shops, setShops] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchFromLocalStorage = () => {
-      try {
-        const shopsData = localStorage.getItem("shops");
-        console.log(shopsData);
-        if (shopsData) {
-          const parsedShops = JSON.parse(shopsData);
-          setShops(parsedShops);
-        }
-      } catch (err) {
-        console.log("Error fetching: ", err);
-        throw err;
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const shopsData = await fetch(
+        "http://localhost:8080/api/shops" ||
+          "https://inventory-manager-backend-qkxh.onrender.com/"
+      )
+        .then((res) => res.json())
+        .then((data) => setShops(data));
+    } catch (err) {
+      console.log("Error fetching: ", err);
+      throw err;
+    }
+  };
 
-    fetchFromLocalStorage();
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (

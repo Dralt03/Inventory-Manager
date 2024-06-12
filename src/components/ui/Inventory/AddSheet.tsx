@@ -16,18 +16,13 @@ import React, { useState } from "react";
 const AddSheet: React.FC<{
   shop_id: string;
   shop_name: string;
-  addShopItem: (
-    shop_id: string,
-    itemName: string,
-    shop: string,
-    quantity: number
-  ) => void;
+  addShopItem: (shop_id: string, itemName: string, quantity: number) => void;
 }> = ({ shop_id, shop_name, addShopItem }) => {
   const [item, setItem] = useState("");
   const [quantity, setQuantity] = useState(0);
 
   const handleSubmit = (e: any) => {
-    addShopItem(shop_id, item, shop_name, quantity);
+    addShopItem(shop_id, item, quantity);
     setItem("");
   };
 

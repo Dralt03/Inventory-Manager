@@ -11,12 +11,7 @@ const Column: React.FC<{
   handleChangeTitle: (id: string, newTitle: string) => void;
   deleteShop: (id: string) => void;
   deleteElement: (shop_id: string, item_id: string) => void;
-  addShopItem: (
-    shop_id: string,
-    itemName: string,
-    shop: string,
-    quantity: number
-  ) => void;
+  addShopItem: (shop_id: string, itemName: string, quantity: number) => void;
 }> = ({
   column,
   handleChangeTitle,
@@ -74,7 +69,7 @@ const Column: React.FC<{
       <ul className="pt-8">
         {column.items.map((item: any) => {
           return (
-            <>
+            <div key={item.id}>
               <li
                 className={clsx(
                   "px-4 py-3 text-lg flex items-center justify-between",
@@ -83,7 +78,6 @@ const Column: React.FC<{
                       item.quantity <= 0,
                   }
                 )}
-                key={item.id}
               >
                 {item.itemName}
                 <Trash2Icon
@@ -98,7 +92,7 @@ const Column: React.FC<{
               <p className="text-neutral-400 pb-4 pl-4 text-sm">
                 Quantity:{item.quantity}
               </p>
-            </>
+            </div>
           );
         })}
       </ul>
