@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import OverviewCard from "@/components/ui/overviewCard";
 import { CardDetails } from "@/components/definitions";
-import { OverviewItems, shops } from "@/lib/seed";
+import { OverviewItems, shops } from "../../../lib/seed";
 
 const Page = () => {
   const [shops, setShops] = useState([]);

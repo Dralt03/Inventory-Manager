@@ -3,19 +3,29 @@ import React, { useEffect, useState } from "react";
 import { poppins } from "@/components/fonts";
 import AddColumn from "@/components/ui/Inventory/AddColumn";
 import Column from "@/components/ui/Inventory/Column";
-import { shops } from "@/lib/seed";
 import { Shop, Item } from "@/components/definitions";
+import { useUser } from "@clerk/nextjs";
+import { fetchData } from "@/lib/utils";
 
 const Page = () => {
-  const [items, setItems] = useState<Shop[]>([]);
+  const [items, setItems] = useState<Shop[]>();
+  const { isSignedIn, user, isLoaded } = useUser();
 
   useEffect(() => {
-    fetch("https://inventory-manager-backend-qkxh.onrender.com/api/shops")
-      .then((res) => res.json())
-      .then((data) => setItems(data))
-      .catch((err) => console.log("Error fetching data: ", err));
+    const setData = async () => {
+      try {
+        const fetchedData = await fetchData();
+        setItems(fetchedData);
+      } catch (err) {
+        console.log("Error setting items: ", err);
+      }
+    };
+
+    setData();
   }, []);
 
+  const userId = user?.id;
+  console.log(userId);
   const addNewItem = async (
     shop_id: string,
     itemName: string,
@@ -23,7 +33,7 @@ const Page = () => {
   ) => {
     try {
       const response = await fetch(
-        `https://inventory-manager-backend-qkxh.onrender.com/api/shops/${shop_id}/items`,
+        `http://localhost:8080/api/users/${userId}/shops/${shop_id}/items`,
         {
           method: "POST",
           headers: {
@@ -32,11 +42,10 @@ const Page = () => {
           body: JSON.stringify({ itemName, quantity }),
         }
       );
-
       if (response.ok) {
         const newItem = await response.json();
         setItems(
-          items.map((shop) =>
+          items?.map((shop) =>
             shop.id === shop_id
               ? { ...shop, items: [...shop.items, newItem] }
               : shop
@@ -54,7 +63,7 @@ const Page = () => {
   const deleteElement = async (shop_id: string, item_id: string) => {
     try {
       const response = await fetch(
-        `https://inventory-manager-backend-qkxh.onrender.com/api/shops/${shop_id}/items/${item_id}`,
+        `http://localhost:8080/api/shops/${shop_id}/items/${item_id}`,
         {
           method: "DELETE",
         }
@@ -62,7 +71,7 @@ const Page = () => {
 
       if (response.ok) {
         setItems(
-          items.map((shop) =>
+          items?.map((shop) =>
             shop.id === shop_id
               ? {
                   ...shop,
@@ -85,7 +94,7 @@ const Page = () => {
   const addEmptyShop = async () => {
     try {
       const response = await fetch(
-        "https://inventory-manager-backend-qkxh.onrender.com/api/shops",
+        `http://localhost:8080/api/user/${userId}/shops`,
         {
           method: "POST",
           headers: {
@@ -97,7 +106,7 @@ const Page = () => {
 
       if (response.ok) {
         const addedShop = await response.json();
-        setItems((prevItems) => [...prevItems, addedShop]);
+        setItems((prevItems) => [{ ...prevItems }, addedShop]);
       } else {
         const errData = await response.json();
         console.log("Error Adding Shop: ", errData.message);
@@ -109,21 +118,18 @@ const Page = () => {
 
   const changeShopTitle = async (id: string, newTitle: string) => {
     try {
-      const response = await fetch(
-        `https://inventory-manager-backend-qkxh.onrender.com/api/shops/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({ newTitle }),
-        }
-      );
+      const response = await fetch(`http://localhost:8080/api/shops/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ newTitle }),
+      });
 
       if (response.ok) {
         const updatedShop = await response.json();
         setItems((previtems) =>
-          previtems.map((shop) => (shop.id === id ? updatedShop : shop))
+          previtems?.map((shop) => (shop.id === id ? updatedShop : shop))
         );
       } else {
         const errData = await response.json();
@@ -136,15 +142,12 @@ const Page = () => {
 
   const deleteShop = async (id: string) => {
     try {
-      const response = await fetch(
-        `https://inventory-manager-backend-qkxh.onrender.com/api/shops/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`http://localhost:8080/api/shops/${id}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
-        setItems((previtems) => previtems.filter((item) => item.id !== id));
+        setItems((previtems) => previtems?.filter((item) => item.id !== id));
       } else {
         const errorData = await response.json();
         console.log("Error deleting shop: ", errorData.message);
@@ -162,21 +165,22 @@ const Page = () => {
         Inventory
       </div>
       <div className="flex flex-col max-md:items-center md:flex-row">
-        {items.length > 0
-          ? items.map((item: Shop) => {
-              return (
-                <Column
-                  key={item.id}
-                  column={item}
-                  handleChangeTitle={changeShopTitle}
-                  deleteShop={deleteShop}
-                  addShopItem={addNewItem}
-                  deleteElement={deleteElement}
-                />
-              );
-            })
-          : ""}
-        <AddColumn shops={items} addEmptyShop={addEmptyShop} />
+        {items?.map((item: Shop) => {
+          return (
+            <Column
+              key={item.id}
+              column={item}
+              handleChangeTitle={changeShopTitle}
+              deleteShop={deleteShop}
+              addShopItem={addNewItem}
+              deleteElement={deleteElement}
+            />
+          );
+        })}
+        <AddColumn
+          shops={items ? [...items] : []}
+          addEmptyShop={addEmptyShop}
+        />
       </div>
     </div>
   );

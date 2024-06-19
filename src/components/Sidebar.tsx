@@ -22,7 +22,7 @@ const Sidebar = () => {
       <SignedIn>
         {links.map((link) => {
           return (
-            <Link href={link.href}>
+            <Link key={link.name} href={link.href}>
               <div
                 className={clsx("py-5 px-5 text-xl hover:cursor-pointer  ", {
                   "bg-neutral-100 dark:bg-neutral-800": pathname === link.href,
