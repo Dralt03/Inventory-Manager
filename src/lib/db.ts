@@ -17,17 +17,9 @@ if (!cached) {
 }
 
 export const connect = async () => {
-  if (cached.conn) return cached.conn;
-
-  cached.promise =
-    cached.promise ||
-    mongoose.connect(MONGO_URI, {
-      dbName: "users",
-      bufferCommands: false,
-      connectTimeoutMS: 30000,
-    });
-
-  cached.conn = await cached.promise;
-  console.log(cached.conn);
-  return cached.conn;
+  mongoose.connect(MONGO_URI, {
+    dbName: "users",
+    bufferCommands: false,
+    connectTimeoutMS: 30000,
+  });
 };
