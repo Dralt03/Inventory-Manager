@@ -21,7 +21,6 @@ const UserSchema = new Schema({
   lastName: {
     type: String || null,
   },
-  shops: [ShopSchema],
 });
 
 const User = models?.User || model("User", UserSchema);
