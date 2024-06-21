@@ -1,5 +1,5 @@
 import { Schema, model, models } from "mongoose";
-import ShopSchema from "./Shop.model";
+import Shop from "./Shop.model";
 
 const UserSchema = new Schema({
   clerkId: {
@@ -21,7 +21,7 @@ const UserSchema = new Schema({
   lastName: {
     type: String || null,
   },
-  shops: [ShopSchema],
+  shops: [Shop],
 });
 
 const User = models?.User || model("User", UserSchema);

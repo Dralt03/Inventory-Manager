@@ -29,4 +29,5 @@ const ShopSchema = new Schema({
   items: [ItemSchema],
 });
 
-export default ShopSchema;
+const Shop = model("Shop", ShopSchema);
+export default Shop;
