@@ -5,27 +5,33 @@ import AddColumn from "@/components/ui/Inventory/AddColumn";
 import Column from "@/components/ui/Inventory/Column";
 import { Shop, Item } from "@/components/definitions";
 import { useUser } from "@clerk/nextjs";
-import { fetchData } from "@/lib/utils";
 
 const Page = () => {
-  const [items, setItems] = useState<Shop[]>();
+  const [items, setItems] = useState<Shop[] | undefined>();
   const { isSignedIn, user, isLoaded } = useUser();
 
-  useEffect(() => {
-    const setData = async () => {
-      try {
-        const fetchedData = await fetchData();
-        setItems(fetchedData);
-      } catch (err) {
-        console.log("Error setting items: ", err);
-      }
-    };
-
-    setData();
-  }, []);
-
   const userId = user?.id;
-  console.log(userId);
+  const setData = async () => {
+    if (!user?.id) {
+      return;
+    }
+    try {
+      await fetch(`http://localhost:8080/api/users/${userId}/shops`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setItems(data);
+        });
+    } catch (err) {
+      console.log("Error setting items: ", err);
+    }
+  };
+
+  useEffect(() => {
+    setData();
+    console.log("done");
+  }, [isLoaded]);
+
   const addNewItem = async (
     shop_id: string,
     itemName: string,
@@ -113,18 +119,22 @@ const Page = () => {
       }
     } catch (err) {
       console.log("Cannot post: ", err);
+      throw err;
     }
   };
 
   const changeShopTitle = async (id: string, newTitle: string) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/shops/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ newTitle }),
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userId}/shops/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ newTitle }),
+        }
+      );
 
       if (response.ok) {
         const updatedShop = await response.json();
@@ -165,20 +175,22 @@ const Page = () => {
         Inventory
       </div>
       <div className="flex flex-col max-md:items-center md:flex-row">
-        {items?.map((item: Shop) => {
-          return (
-            <Column
-              key={item.id}
-              column={item}
-              handleChangeTitle={changeShopTitle}
-              deleteShop={deleteShop}
-              addShopItem={addNewItem}
-              deleteElement={deleteElement}
-            />
-          );
-        })}
+        {[items].length > 0
+          ? items?.map((item: Shop) => {
+              return (
+                <Column
+                  key={item.id}
+                  column={item}
+                  handleChangeTitle={changeShopTitle}
+                  deleteShop={deleteShop}
+                  addShopItem={addNewItem}
+                  deleteElement={deleteElement}
+                />
+              );
+            })
+          : ""}
         <AddColumn
-          shops={items ? [...items] : []}
+          shops={items?.length === 0 ? items : []}
           addEmptyShop={addEmptyShop}
         />
       </div>

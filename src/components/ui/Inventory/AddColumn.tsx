@@ -2,10 +2,10 @@ import React from "react";
 import { Plus } from "lucide-react";
 import { Shop } from "@/components/definitions";
 
-const AddColumn: React.FC<{ shops: Shop[]; addEmptyShop: () => void }> = ({
-  shops,
-  addEmptyShop,
-}) => {
+const AddColumn: React.FC<{
+  shops: Shop[] | undefined;
+  addEmptyShop: () => void;
+}> = ({ shops, addEmptyShop }) => {
   return (
     <div
       onClick={addEmptyShop}

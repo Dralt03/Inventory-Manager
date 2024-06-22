@@ -67,34 +67,36 @@ const Column: React.FC<{
       </div>
       <Separator />
       <ul className="pt-8">
-        {column.items.map((item: any) => {
-          return (
-            <div key={item.id}>
-              <li
-                className={clsx(
-                  "px-4 py-3 text-lg flex items-center justify-between",
-                  {
-                    "text-red-600/60 dark:text-red-400 font-semibold":
-                      item.quantity <= 0,
-                  }
-                )}
-              >
-                {item.itemName}
-                <Trash2Icon
-                  className="hover:cursor-pointer"
-                  onClick={() => {
-                    deleteElement(column.id, item.id);
-                    console.log(item);
-                  }}
-                  size={18}
-                />
-              </li>
-              <p className="text-neutral-400 pb-4 pl-4 text-sm">
-                Quantity:{item.quantity}
-              </p>
-            </div>
-          );
-        })}
+        {column.items.length > 0
+          ? column.items.map((item: any) => {
+              return (
+                <div key={item.id}>
+                  <li
+                    className={clsx(
+                      "px-4 py-3 text-lg flex items-center justify-between",
+                      {
+                        "text-red-600/60 dark:text-red-400 font-semibold":
+                          item.quantity <= 0,
+                      }
+                    )}
+                  >
+                    {item.itemName}
+                    <Trash2Icon
+                      className="hover:cursor-pointer"
+                      onClick={() => {
+                        deleteElement(column.id, item.id);
+                        console.log(item);
+                      }}
+                      size={18}
+                    />
+                  </li>
+                  <p className="text-neutral-400 pb-4 pl-4 text-sm">
+                    Quantity:{item.quantity}
+                  </p>
+                </div>
+              );
+            })
+          : ""}
       </ul>
       <AddSheet
         shop_id={column.id}

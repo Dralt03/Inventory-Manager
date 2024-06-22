@@ -18,7 +18,7 @@ if (!cached) {
 
 export const connect = async () => {
   mongoose.connect(MONGO_URI, {
-    dbName: "user",
+    dbName: "users",
     bufferCommands: false,
     connectTimeoutMS: 30000,
   });
