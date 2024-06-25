@@ -19,8 +19,11 @@ const Page = () => {
       await fetch(`http://localhost:8080/api/users/${userId}/shops`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          setItems(data);
+          if (data) {
+            setItems(data);
+          } else {
+            setItems([]);
+          }
         });
     } catch (err) {
       console.log("Error setting items: ", err);
