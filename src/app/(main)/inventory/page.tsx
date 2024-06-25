@@ -7,22 +7,30 @@ import { Shop, Item } from "@/components/definitions";
 import { useUser } from "@clerk/nextjs";
 
 const Page = () => {
+  const [d, setD] = useState();
   const [items, setItems] = useState<Shop[] | undefined>();
   const { isSignedIn, user, isLoaded } = useUser();
 
   const userId = user?.id;
+  console.log(userId);
   const setData = async () => {
     if (!user?.id) {
       return;
     }
     try {
-      await fetch(`http://localhost:8080/api/users/${userId}/shops`)
+      await fetch(`http://localhost:8080/api/users`)
         .then((res) => res.json())
         .then((data) => {
           if (data) {
-            setItems(data);
+            setD(data);
           } else {
-            setItems([]);
+            setItems([
+              {
+                id: "1",
+                title: "Shop1",
+                items: [{ id: "1", itemName: "ItemName", quantity: 5 }],
+              },
+            ]);
           }
         });
     } catch (err) {
@@ -35,6 +43,7 @@ const Page = () => {
     console.log("done");
   }, [isLoaded]);
 
+  console.log(d);
   const addNewItem = async (
     shop_id: string,
     itemName: string,
@@ -173,35 +182,35 @@ const Page = () => {
     }
   };
 
-  return (
-    <div className="pt-24 mr-5 overflow-auto">
-      <div
-        className={`${poppins.className} px-16 pt-5 pb-4 text-3xl font-medium `}
-      >
-        Inventory
-      </div>
-      <div className="flex flex-col max-md:items-center md:flex-row">
-        {[items].length > 0
-          ? items?.map((item: Shop) => {
-              return (
-                <Column
-                  key={item.id}
-                  column={item}
-                  handleChangeTitle={changeShopTitle}
-                  deleteShop={deleteShop}
-                  addShopItem={addNewItem}
-                  deleteElement={deleteElement}
-                />
-              );
-            })
-          : ""}
-        <AddColumn
-          shops={items?.length === 0 ? items : []}
-          addEmptyShop={addEmptyShop}
-        />
-      </div>
-    </div>
-  );
+  // return (
+  //   <div className="pt-24 mr-5 overflow-auto">
+  //     <div
+  //       className={`${poppins.className} px-16 pt-5 pb-4 text-3xl font-medium `}
+  //     >
+  //       Inventory
+  //     </div>
+  //     <div className="flex flex-col max-md:items-center md:flex-row">
+  //       {[items].length > 0
+  //         ? items?.map((item: Shop) => {
+  //             return (
+  //               <Column
+  //                 key={item.id}
+  //                 column={item}
+  //                 handleChangeTitle={changeShopTitle}
+  //                 deleteShop={deleteShop}
+  //                 addShopItem={addNewItem}
+  //                 deleteElement={deleteElement}
+  //               />
+  //             );
+  //           })
+  //         : ""}
+  //       <AddColumn
+  //         shops={items?.length === 0 ? items : []}
+  //         addEmptyShop={addEmptyShop}
+  //       />
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default Page;
