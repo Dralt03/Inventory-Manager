@@ -69,7 +69,7 @@ const Page = () => {
   const deleteElement = async (shop_id: string, item_id: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/shops/${shop_id}/items/${item_id}`,
+        `http://localhost:8080/api/users/${userId}/shops/${shop_id}/items/${item_id}`,
         {
           method: "DELETE",
         }
@@ -100,7 +100,7 @@ const Page = () => {
   const addEmptyShop = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/user/${userId}/shops`,
+        `http://localhost:8080/api/users/${userId}/shops`,
         {
           method: "POST",
           headers: {
@@ -111,8 +111,8 @@ const Page = () => {
       );
 
       if (response.ok) {
-        const addedShop = await response.json();
-        setItems((prevItems) => [{ ...prevItems }, addedShop]);
+        const newShops = await response.json();
+        setItems(newShops);
       } else {
         const errData = await response.json();
         console.log("Error Adding Shop: ", errData.message);
@@ -128,14 +128,13 @@ const Page = () => {
       const response = await fetch(
         `http://localhost:8080/api/users/${userId}/shops/${id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-type": "application/json",
           },
           body: JSON.stringify({ newTitle }),
         }
       );
-
       if (response.ok) {
         const updatedShop = await response.json();
         setItems((previtems) =>
@@ -150,14 +149,18 @@ const Page = () => {
     }
   };
 
-  const deleteShop = async (id: string) => {
+  const deleteShop = async (shopId: string) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/shops/${id}`, {
-        method: "DELETE",
-      });
-
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userId}/shops/${shopId}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (response.ok) {
-        setItems((previtems) => previtems?.filter((item) => item.id !== id));
+        setItems((previtems) =>
+          previtems?.filter((item) => item.id !== shopId)
+        );
       } else {
         const errorData = await response.json();
         console.log("Error deleting shop: ", errorData.message);

@@ -1,39 +1,43 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import OverviewCard from "@/components/ui/overviewCard";
-import { CardDetails } from "@/components/definitions";
-import { OverviewItems, shops } from "../../../lib/seed";
+import { Shop } from "@/components/definitions";
+import { useUser } from "@clerk/nextjs";
 
 const Page = () => {
-  const [shops, setShops] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState<Shop[]>();
+  const { isSignedIn, user, isLoaded } = useUser();
 
-  const fetchData = async () => {
+  const userId = user?.id;
+  const setData = async () => {
+    if (!user?.id) {
+      return;
+    }
     try {
-      const shopsData = await fetch(
-        "http://localhost:8080/api/shops" ||
-          "https://inventory-manager-backend-qkxh.onrender.com/"
-      )
+      await fetch(`http://localhost:8080/api/users/${userId}/shops`)
         .then((res) => res.json())
-        .then((data) => setShops(data));
+        .then((data) => {
+          console.log(data);
+          setItems(data);
+        });
     } catch (err) {
-      console.log("Error fetching: ", err);
-      throw err;
+      console.log("Error setting items: ", err);
     }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    setData();
+    console.log("done");
+  }, [isLoaded]);
 
   return (
     <main className="flex max-md:justify-center">
       <div className="pt-10 pl-10 flex flex-wrap max-md:min-w-80 w-full">
-        {shops.length > 0
-          ? shops.map((shop: any) => {
+        {[items].length < 0
+          ? items?.map((shop: Shop) => {
               return <OverviewCard key={shop.id} {...shop} />;
             })
-          : "Nothing to see here"}
+          : ""}
       </div>
     </main>
   );
