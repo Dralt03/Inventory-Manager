@@ -182,35 +182,35 @@ const Page = () => {
     }
   };
 
-  // return (
-  //   <div className="pt-24 mr-5 overflow-auto">
-  //     <div
-  //       className={`${poppins.className} px-16 pt-5 pb-4 text-3xl font-medium `}
-  //     >
-  //       Inventory
-  //     </div>
-  //     <div className="flex flex-col max-md:items-center md:flex-row">
-  //       {[items].length > 0
-  //         ? items?.map((item: Shop) => {
-  //             return (
-  //               <Column
-  //                 key={item.id}
-  //                 column={item}
-  //                 handleChangeTitle={changeShopTitle}
-  //                 deleteShop={deleteShop}
-  //                 addShopItem={addNewItem}
-  //                 deleteElement={deleteElement}
-  //               />
-  //             );
-  //           })
-  //         : ""}
-  //       <AddColumn
-  //         shops={items?.length === 0 ? items : []}
-  //         addEmptyShop={addEmptyShop}
-  //       />
-  //     </div>
-  //   </div>
-  // );
+  return (
+    <div className="pt-24 mr-5 overflow-auto">
+      <div
+        className={`${poppins.className} px-16 pt-5 pb-4 text-3xl font-medium `}
+      >
+        Inventory
+      </div>
+      <div className="flex flex-col max-md:items-center md:flex-row">
+        {[items].length > 0
+          ? items?.map((item: Shop) => {
+              return (
+                <Column
+                  key={item.id}
+                  column={item}
+                  handleChangeTitle={changeShopTitle}
+                  deleteShop={deleteShop}
+                  addShopItem={addNewItem}
+                  deleteElement={deleteElement}
+                />
+              );
+            })
+          : ""}
+        <AddColumn
+          shops={items?.length === 0 ? items : []}
+          addEmptyShop={addEmptyShop}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Page;
