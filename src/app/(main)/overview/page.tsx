@@ -25,14 +25,20 @@ const Page = () => {
     }
   };
 
-  // useEffect(() => {
-  //   setData();
-  //   console.log("done");
-  // }, [isLoaded]);
+  useEffect(() => {
+    setData();
+    console.log("done");
+  }, [isLoaded]);
 
   return (
     <main className="flex max-md:justify-center">
-      <div className="pt-10 pl-10 flex flex-wrap max-md:min-w-80 w-full"></div>
+      <div className="pt-10 pl-10 flex flex-wrap max-md:min-w-80 w-full">
+        {[items]?.length < 0
+          ? items?.map((shop: Shop) => {
+              return <OverviewCard key={shop.id} {...shop} />;
+            })
+          : ""}
+      </div>
     </main>
   );
 };
