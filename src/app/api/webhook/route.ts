@@ -19,7 +19,7 @@ export const POST = async (req: Request) => {
         shops: [],
       };
       const newUser = await createUser(user);
-
+      console.log(newUser);
       if (newUser) {
         await clerkClient.users.updateUserMetadata(id, {
           publicMetadata: {

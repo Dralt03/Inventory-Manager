@@ -1,25 +1,19 @@
-import mongoose, { Mongoose } from "mongoose";
-
 const MONGO_URI = process.env.MONGO_URI!;
 
-interface MongooseConn {
-  conn: Mongoose | null;
-  promise: Promise<Mongoose> | null;
-}
+export const AddToDB = async (user: any) => {
+  const MongoClient = require("mongodb").MongoClient;
+  const client = new MongoClient(MONGO_URI);
 
-let cached: MongooseConn = (global as any).mongoose;
-
-if (!cached) {
-  cached = (global as any).mongoose = {
-    conn: null,
-    promise: null,
-  };
-}
-
-export const connect = async () => {
-  mongoose.connect(MONGO_URI, {
-    dbName: "users",
-    bufferCommands: false,
-    connectTimeoutMS: 30000,
-  });
+  try {
+    await client.connect();
+    const database = client.db("users");
+    const collections = database.collections("users");
+    await collections.insertOne(user);
+    console.log("User added");
+  } catch (err) {
+    console.error("Error creating User: ", err);
+    return null;
+  } finally {
+    await client.close();
+  }
 };
