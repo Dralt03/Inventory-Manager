@@ -22,7 +22,7 @@ const Page = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data) {
-            setD(data);
+            setItems(data);
           } else {
             setItems([
               {
