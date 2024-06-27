@@ -190,20 +190,18 @@ const Page = () => {
         Inventory
       </div>
       <div className="flex flex-col max-md:items-center md:flex-row">
-        {[items].length > 0
-          ? items?.map((item: Shop) => {
-              return (
-                <Column
-                  key={item.id}
-                  column={item}
-                  handleChangeTitle={changeShopTitle}
-                  deleteShop={deleteShop}
-                  addShopItem={addNewItem}
-                  deleteElement={deleteElement}
-                />
-              );
-            })
-          : ""}
+        {items?.map((item: Shop) => {
+          return (
+            <Column
+              key={item.id}
+              column={item}
+              handleChangeTitle={changeShopTitle}
+              deleteShop={deleteShop}
+              addShopItem={addNewItem}
+              deleteElement={deleteElement}
+            />
+          );
+        })}
         <AddColumn
           shops={items?.length === 0 ? items : []}
           addEmptyShop={addEmptyShop}
