@@ -8,7 +8,7 @@ import { useUser } from "@clerk/nextjs";
 
 const Page = () => {
   const [d, setD] = useState();
-  const [items, setItems] = useState<Shop[] | undefined>();
+  const [items, setItems] = useState<Shop[]>();
   const { isSignedIn, user, isLoaded } = useUser();
 
   const userId = user?.id;
@@ -18,7 +18,7 @@ const Page = () => {
       return;
     }
     try {
-      await fetch(`http://localhost:8080/api/users`)
+      await fetch(`http://localhost:8080/api/users/${userId}/shops`)
         .then((res) => res.json())
         .then((data) => {
           if (data) {
@@ -190,18 +190,20 @@ const Page = () => {
         Inventory
       </div>
       <div className="flex flex-col max-md:items-center md:flex-row">
-        {items?.map((item: Shop) => {
-          return (
-            <Column
-              key={item.id}
-              column={item}
-              handleChangeTitle={changeShopTitle}
-              deleteShop={deleteShop}
-              addShopItem={addNewItem}
-              deleteElement={deleteElement}
-            />
-          );
-        })}
+        {[items].length > 0
+          ? items?.map((item: Shop) => {
+              return (
+                <Column
+                  key={item.id}
+                  column={item}
+                  handleChangeTitle={changeShopTitle}
+                  deleteShop={deleteShop}
+                  addShopItem={addNewItem}
+                  deleteElement={deleteElement}
+                />
+              );
+            })
+          : ""}
         <AddColumn
           shops={items?.length === 0 ? items : []}
           addEmptyShop={addEmptyShop}
