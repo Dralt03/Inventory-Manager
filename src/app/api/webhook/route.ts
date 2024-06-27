@@ -10,15 +10,16 @@ export const POST = async (req: Request) => {
     if (event === "user.created") {
       const { id, email_addresses, username, first_name, last_name } =
         body?.data;
-      console.log(body);
+      const shops = [{ id: 1, title: "Shop1", items: [] }];
       const user = {
         clerkId: id,
         email: email_addresses[0].email_address,
         username: username!,
         firstName: first_name,
         lastName: last_name,
-        shops: [],
+        shops: shops,
       };
+      console.log(user);
       const newUser = await createUser(user);
       if (newUser) {
         await clerkClient.users.updateUserMetadata(id, {
