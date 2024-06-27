@@ -31,7 +31,7 @@ const Page = () => {
   return (
     <main className="flex max-md:justify-center">
       <div className="pt-10 pl-10 flex flex-wrap max-md:min-w-80 w-full">
-        {[items].length > 0
+        {items !== null
           ? items?.map((shop: Shop) => {
               return <OverviewCard key={shop.id} {...shop} />;
             })

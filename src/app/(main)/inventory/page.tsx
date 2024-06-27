@@ -181,7 +181,7 @@ const Page = () => {
       console.log("Error POSTING: ", err);
     }
   };
-
+  console.log(items);
   return (
     <div className="pt-24 mr-5 overflow-auto">
       <div
@@ -190,18 +190,20 @@ const Page = () => {
         Inventory
       </div>
       <div className="flex flex-col max-md:items-center md:flex-row">
-        {items?.map((item: Shop) => {
-          return (
-            <Column
-              key={item.id}
-              column={item}
-              handleChangeTitle={changeShopTitle}
-              deleteShop={deleteShop}
-              addShopItem={addNewItem}
-              deleteElement={deleteElement}
-            />
-          );
-        })}
+        {items !== null
+          ? items?.map((item: Shop) => {
+              return (
+                <Column
+                  key={item.id}
+                  column={item}
+                  handleChangeTitle={changeShopTitle}
+                  deleteShop={deleteShop}
+                  addShopItem={addNewItem}
+                  deleteElement={deleteElement}
+                />
+              );
+            })
+          : ""}
         <AddColumn
           shops={items?.length === 0 ? items : []}
           addEmptyShop={addEmptyShop}
