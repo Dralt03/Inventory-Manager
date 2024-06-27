@@ -21,7 +21,7 @@ const Page = () => {
       await fetch(`http://localhost:8080/api/users/${userId}/shops`)
         .then((res) => res.json())
         .then((data) => {
-          if (data) {
+          if (data !== null) {
             setItems(data);
           } else {
             setItems([
