@@ -24,13 +24,7 @@ const Page = () => {
           if (data !== null) {
             setItems(data);
           } else {
-            setItems([
-              {
-                id: "1",
-                title: "Shop1",
-                items: [{ id: "1", itemName: "ItemName", quantity: 5 }],
-              },
-            ]);
+            setItems([]);
           }
         });
     } catch (err) {
@@ -190,7 +184,7 @@ const Page = () => {
         Inventory
       </div>
       <div className="flex flex-col max-md:items-center md:flex-row">
-        {items !== null
+        {items !== null && items !== undefined && items.length > 0
           ? items?.map((item: Shop) => {
               return (
                 <Column
