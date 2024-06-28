@@ -41,29 +41,29 @@ Inventory Manager is a web application designed to help users keep track of thei
 
 1. Clone the backend repository:
 
-   ```bash
-   git clone <backend-repo-url>
-   cd backend-repo
-   ```
+```bash
+git clone <backend-repo-url>
+cd backend-repo
+```
 
 2. Install dependencies:
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. Create a `.env` file and add your environment variables:
 
-   ```env
-   MONGODB_URI=<your-mongodb-uri>
-   CLERK_SECRET_KEY=<your-clerk-secret-key>
-   ```
+```env
+MONGODB_URI=<your-mongodb-uri>
+CLERK_SECRET_KEY=<your-clerk-secret-key>
+```
 
 4. Start the development server:
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 5. Deploy the backend on Render following their deployment guidelines.
 
@@ -71,16 +71,16 @@ Inventory Manager is a web application designed to help users keep track of thei
 
 1. Clone the frontend repository:
 
-   ```bash
-   git clone <frontend-repo-url>
-   cd frontend-repo
-   ```
+```bash
+git clone <frontend-repo-url>
+cd frontend-repo
+```
 
 2. Install dependencies:
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. Create a `.env.local` file and add your environment variables:
 
