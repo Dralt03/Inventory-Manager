@@ -84,12 +84,12 @@ Inventory Manager is a web application designed to help users keep track of thei
 
 3. Create a `.env.local` file and add your environment variables:
 
-   ```env
-   MONGO_URI=<your-mongodb-key>
-   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your-publishable-clerk-key>
-   CLERK_SECRET_KEY=<your-clerk-secret-key>
-   WEBHOOK_SECRET=<your-webhook-secret-key-clerk>
-   ```
+```env
+MONGO_URI=<your-mongodb-key>
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your-publishable-clerk-key>
+CLERK_SECRET_KEY=<your-clerk-secret-key>
+WEBHOOK_SECRET=<your-webhook-secret-key-clerk>
+```
 
 4. Start the development server:
 
