@@ -18,7 +18,9 @@ const Page = () => {
       return;
     }
     try {
-      await fetch(`http://localhost:8080/api/users/${userId}/shops`)
+      await fetch(
+        `https://inventory-manager-backend-qkxh.onrender.com/api/users/${userId}/shops`
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data !== null) {
@@ -45,7 +47,7 @@ const Page = () => {
   ) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/users/${userId}/shops/${shop_id}/items`,
+        `https://inventory-manager-backend-qkxh.onrender.com/api/users/${userId}/shops/${shop_id}/items`,
         {
           method: "POST",
           headers: {
@@ -75,7 +77,7 @@ const Page = () => {
   const deleteElement = async (shop_id: string, item_id: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/users/${userId}/shops/${shop_id}/items/${item_id}`,
+        `https://inventory-manager-backend-qkxh.onrender.com/api/users/${userId}/shops/${shop_id}/items/${item_id}`,
         {
           method: "DELETE",
         }
@@ -106,7 +108,7 @@ const Page = () => {
   const addEmptyShop = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/users/${userId}/shops`,
+        `https://inventory-manager-backend-qkxh.onrender.com/api/users/${userId}/shops`,
         {
           method: "POST",
           headers: {
@@ -132,7 +134,7 @@ const Page = () => {
   const changeShopTitle = async (id: string, newTitle: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/users/${userId}/shops/${id}`,
+        `https://inventory-manager-backend-qkxh.onrender.com/api/users/${userId}/shops/${id}`,
         {
           method: "PUT",
           headers: {
@@ -158,7 +160,7 @@ const Page = () => {
   const deleteShop = async (shopId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/users/${userId}/shops/${shopId}`,
+        `https://inventory-manager-backend-qkxh.onrender.com/api/users/${userId}/shops/${shopId}`,
         {
           method: "DELETE",
         }

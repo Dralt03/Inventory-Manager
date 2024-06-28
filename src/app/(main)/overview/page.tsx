@@ -14,7 +14,9 @@ const Page = () => {
       return;
     }
     try {
-      await fetch(`http://localhost:8080/api/users/${userId}/shops`)
+      await fetch(
+        `https://inventory-manager-backend-qkxh.onrender.com/api/users/${userId}/shops`
+      )
         .then((res) => res.json())
         .then((data) => {
           setItems(data);
